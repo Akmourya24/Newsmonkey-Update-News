@@ -12,8 +12,8 @@ export default class Newitem extends Component {
                             <h5 className="card-title">{title}</h5>
                             <p className="card-text">{discription}</p>
                             <div className=' d-flex fw-semibold justify-content-between'>
-                            <p className="card-text"><small class="text-body-secondary">Post: {new Date(date).toGMTString()}</small></p>
-                            <p className="card-text"><small class="text-body-secondary">By :{!author?"Unknown":author}</small></p>
+                            <p className="card-text"><small className="text-body-secondary">Post: {new Date(date).toGMTString()}</small></p>
+                            <p className="card-text"><small className="text-body-secondary">By :{!author?"Unknown":author}</small></p>
                             </div>
                             <a href={url} rel ="noreferrer" target='_blank' className="btn btn-primary">More News</a>
                         </div>
