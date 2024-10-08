@@ -1,42 +1,40 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Newitem from './Newitem'
 import Spinner from './Spinner'
 
-export default class India extends Component {
-    constructor() {
-        super()
-        this.state = {
-            articles: [],
-            loading: false,
-            // totalResults: 0
-        }
-    }
+const India = (props) => {
+
+    const [articles, setArticles] = useState([])
+    const loading = false
 
 
-    componentDidMount = async () => {
-        this.props.setProgress(10)
-        const getUrl = `https://newsapi.org/v2/everything?q=india&apiKey=${this.props.apikey}`
+    const newsUpade = async () => {
+        props.setProgress(10)
+        // const getUrl = `https://newsapi.org/v2/everything?q=india&apiKey=${props.apikey}`
+        let getUrl ="https://gnews.io/api/v4/search?q=example&lang=en&country=in&max=20&apikey=4884af1d92afa19a25b9ecd189964fa6"
         const data = await fetch(getUrl)
-        this.props.setProgress(30)
+        props.setProgress(30)
         const bigData = await data.json();
-        this.props.setProgress(70)
+        props.setProgress(70)
         console.log(bigData)
-        this.setState({
-            articles: bigData.articles
-        })
-        this.props.setProgress(100)
+        setArticles(bigData.articles)
+        props.setProgress(100)
 
     }
+    useEffect(() => {
+        newsUpade()
+        // eslint-disable-next-line
+    }, []);
 
-    filterNews = () => {
-        return this.state.articles.filter(article => {
+    const filterNews = () => {
+        return articles.filter(article => {
             return article.urlToImage !== null && article.discription !== null
-        
-    })
-}
 
-render() {
-    const updatedNews =this.filterNews()
+        })
+    }
+
+
+    const updatedNews = filterNews()
     return (
         <>
 
@@ -44,7 +42,7 @@ render() {
                 <h1 className=' text-center my-5'>Newsdonkey - All India News </h1>
                 <div className='container my-3  d-flex justify-content-end'>
                 </div>
-                {this.state.loading && <Spinner />}
+                {loading && <Spinner />}
                 <div className='row' >
                     {updatedNews.map((E) => {
 
@@ -61,4 +59,4 @@ render() {
         </>
     )
 }
-}
+export default India
